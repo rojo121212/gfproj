@@ -53,9 +53,9 @@ body {
 main {
     position: relative;
     z-index: 1;
-    max-width: 750px;
+    max-width: 950px;
     margin: auto;
-    padding: 55px 20px;
+    padding: 70px 25px;
     text-align: center;
 }
 
@@ -72,12 +72,12 @@ h1 {
 }
 
 .card {
-    background: rgba(255,255,255,0.82);
-    border: 2px solid white;
-    border-radius: 28px;
-    padding: 30px 22px;
-    margin: 45px 0;
-    box-shadow: 0 10px 35px rgba(194, 105, 145, 0.12);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 45px 10px;
+    margin: 65px 0;
+    box-shadow: none;
 }
 
 h2 {
@@ -181,12 +181,13 @@ button:hover {
 
 .secret {
     display: none;
-    margin-top: 20px;
+    margin: 30px auto;
     padding: 20px;
-    background: #fff0f6;
-    border-radius: 20px;
+    background: transparent;
+    border-radius: 0;
     animation: appear 0.7s ease;
     line-height: 1.8;
+    max-width: 600px;
 }
 
 .secret.show {
@@ -203,11 +204,11 @@ footer {
 /* CATCH MY LOVE GAME */
 
 .game-area {
-    background: #fff5fa;
-    border: 2px solid #ffd1e3;
-    border-radius: 22px;
-    padding: 15px;
-    margin-top: 20px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 15px 0;
+    margin-top: 25px;
 }
 
 #loveGame {
@@ -249,7 +250,67 @@ footer {
     line-height: 1.7;
 }
 
+/* SURPRISE PICTURE POPUP */
 
+.surprise-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(91, 43, 69, 0.65);
+    backdrop-filter: blur(7px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.surprise-overlay.show {
+    display: flex;
+    animation: appear 0.5s ease;
+}
+
+.surprise-popup {
+    position: relative;
+    width: min(90vw, 520px);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(145deg, #fff7fb, #ffe5f0);
+    border: 3px solid white;
+    border-radius: 25px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(90, 35, 65, 0.3);
+    animation: popIn 0.6s ease;
+}
+
+.surprise-popup h2 {
+    margin-bottom: 15px;
+}
+
+.surprise-popup img {
+    display: block;
+    width: 100%;
+    max-height: 55vh;
+    object-fit: contain;
+    border-radius: 15px;
+    margin: 15px auto;
+}
+
+.surprise-popup p {
+    line-height: 1.8;
+    margin: 12px 0;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.75) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
     
 </style>
 </head>
@@ -439,7 +500,39 @@ footer {
 
     </div>
 </section>
+<!-- SURPRISE PICTURE POPUP -->
 
+<div class="surprise-overlay" id="surprisePopup">
+    <div class="surprise-popup">
+
+        <h2>You Caught My Heart! 💗</h2>
+
+        <p>Look what you unlocked, pretty girl...</p>
+
+        <img
+            src="photos/surprise.jpg"
+            alt="A special picture for you"
+        >
+
+        <p id="popupScore"></p>
+
+        <p>
+            distance means nothing when someone means everything.
+            i love you, Ariel. ♡
+        </p>
+
+        <button onclick="closeSurprise()">
+            Close 💕
+        </button>
+
+        <button onclick="closeSurprise(); startLoveGame()">
+            Play Again ↻
+        </button>
+
+    </div>
+</div>
+    
+    
 </main>
 
 <script>
@@ -698,16 +791,21 @@ function endLoveGame() {
         message = "bow bow bow♡";
     }
 
+    // Keep the final score visible
     document.getElementById("gameResult").innerHTML =
-        message + "<br><br>Final score: " + gamePoints +
-        "<br>But you already have all my love. 💌";
+        message + "<br><br>Final score: " + gamePoints;
 
-    ctx.font = "55px Arial";
-    ctx.fillText("💗", 220, 170);
-    ctx.font = "25px Arial";
-    ctx.fillText("guess you won my heart", 155, 215);
+    // Show the surprise picture popup
+    document.getElementById("popupScore").textContent =
+        "Your final score: " + gamePoints + " 💗";
+
+    document.getElementById("surprisePopup").classList.add("show");
 }
 
+// Close the picture popup
+function closeSurprise() {
+    document.getElementById("surprisePopup").classList.remove("show");
+}
 // Keyboard controls
 
 document.addEventListener("keydown", function(event) {
