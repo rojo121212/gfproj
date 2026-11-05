@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 3 Months ❤️</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Quicksand',sans-serif;
+            min-height:100vh;
+            background:linear-gradient(135deg,#ffd6e7,#ffeccf);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:30px;
+            overflow-x:hidden;
+        }
+
+        /* Floating Hearts */
+
+        .hearts{
+            position:fixed;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            pointer-events:none;
+            top:0;
+            left:0;
+            z-index:0;
+        }
+
+        .hearts span{
+            position:absolute;
+            bottom:-50px;
+            font-size:2rem;
+            animation:float 12s linear infinite;
+        }
+
+        .hearts span:nth-child(1){left:10%;animation-delay:0s;}
+        .hearts span:nth-child(2){left:25%;animation-delay:2s;}
+        .hearts span:nth-child(3){left:40%;animation-delay:4s;}
+        .hearts span:nth-child(4){left:60%;animation-delay:6s;}
+        .hearts span:nth-child(5){left:75%;animation-delay:8s;}
+        .hearts span:nth-child(6){left:90%;animation-delay:10s;}
+
+        @keyframes float{
+            from{
+                transform:translateY(0);
+                opacity:1;
+            }
+            to{
+                transform:translateY(-120vh);
+                opacity:0;
+            }
+        }
+
+        /* Main Card */
+
+        .card{
+            position:relative;
+            z-index:1;
+            max-width:850px;
+            background:white;
+            padding:50px;
+            border-radius:25px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.15);
+            text-align:center;
+        }
+
+        h1{
+            font-family:'Dancing Script',cursive;
+            font-size:4rem;
+            color:#ff5d8f;
+            margin-bottom:10px;
+        }
+
+        h2{
+            color:#444;
+            margin-bottom:15px;
+        }
+
+        .heart{
+            font-size:3rem;
+            animation:pulse 1.5s infinite;
+        }
+
+        @keyframes pulse{
+            0%{transform:scale(1);}
+            50%{transform:scale(1.15);}
+            100%{transform:scale(1);}
+        }
+
+        /* Music Heart */
+
+        .music-heart{
+            font-size:4rem;
+            cursor:pointer;
+            margin:20px 0;
+            transition:0.3s;
+        }
+
+        .music-heart:hover{
+            transform:scale(1.2);
+        }
+
+        /* Timer */
+
+        .timer-box{
+            background:#fff3f8;
+            padding:20px;
+            border-radius:15px;
+            margin:25px 0;
+        }
+
+        .timer-box h3{
+            color:#ff5d8f;
+            margin-bottom:10px;
+        }
+
+        #relationshipTimer{
+            font-size:1.3rem;
+            font-weight:bold;
+        }
+
+        /* Photo */
+
+        .photo-frame{
+            width:300px;
+            height:300px;
+            margin:30px auto;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .photo-frame img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        p{
+            line-height:1.8;
+            color:#555;
+            margin:20px 0;
+            font-size:1.05rem;
+        }
+
+        /* Secret Letter */
+
+        .secret-btn{
+            background:#ff5d8f;
+            color:white;
+            border:none;
+            padding:15px 30px;
+            border-radius:30px;
+            cursor:pointer;
+            font-size:1rem;
+            margin-top:20px;
+        }
+
+        .secret-btn:hover{
+            opacity:0.9;
+        }
+
+        .secret-letter{
+            display:none;
+            margin-top:20px;
+            background:#fff3f8;
+            padding:25px;
+            border-radius:15px;
+            text-align:left;
+        }
+
+        /* Love List */
+
+        .love-list{
+            margin-top:40px;
+            text-align:left;
+        }
+
+        .love-list h2{
+            text-align:center;
+        }
+
+        .love-list li{
+            margin:12px 0;
+            color:#555;
+        }
+
+        /* Gallery */
+
+        .gallery{
+            margin-top:40px;
+        }
+
+        .gallery-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:15px;
+            margin-top:20px;
+        }
+
+        .gallery-grid img{
+            width:100%;
+            height:200px;
+            object-fit:cover;
+            border-radius:15px;
+        }
+
+        .signature{
+            margin-top:40px;
+            font-family:'Dancing Script',cursive;
+            font-size:2rem;
+            color:#ff5d8f;
+        }
+
+        .date{
+            margin-top:10px;
+            color:#888;
+        }
+
+        @media(max-width:700px){
+            .card{
+                padding:30px;
+            }
+
+            h1{
+                font-size:3rem;
+            }
+
+            .photo-frame{
+                width:220px;
+                height:220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts -->
+
+    <div class="hearts">
+        <span>❤️</span>
+        <span>💖</span>
+        <span>💕</span>
+        <span>💗</span>
+        <span>❤️</span>
+        <span>💞</span>
+    </div>
+
+    <!-- Music -->
+
+    <audio id="ourSong">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card">
+
+        <div class="heart">❤️</div>
+
+        <h1>Happy 3 Months!</h1>
+
+        <h2>Ariel Paula Debbie Dean</h2>
+
+       <div class="music-heart" onclick="showSongMessage()">
+            ❤️
+        </div>
+        
+        <div id="songMessage" style="display:none;">
+            <p>
+                Every time I hear this song, I think of you.
+            </p>
+        
+            <a href="https://www.youtube.com/watch?v=MKPspR0MrYA"
+               target="_blank">
+               Listen to Our Song 🎵
+            </a>
+        </div>
+
+        <!-- Timer -->
+
+        <div class="timer-box">
+            <h3>We've Been Together For</h3>
+            <p id="relationshipTimer"></p>
+        </div>
+
+        <!-- Main Photo -->
+
+        <div class="photo-frame">
+            <img src="ad3mo1.JPG" alt="Us Together">
+        </div>
+
+        <p>
+            Three months may not seem like a long time,
+            but every day with you is a new favorite memory.
+            You are everything I have wished for all at once. 
+            Every day of life with you feels sacred. 
+            The way you look at me in the morning, 
+            the way you hold me, the way your arm brushes mine. 
+            Thank you for all the laughter, support, adventures,
+            and little moments that make my life brighter.
+            
+        </p>
+
+        <p>
+            I know long distance is hard, but it is so worth it. 
+            I have spent 2 years loving you Ariel, and I have no hopes of stopping 
+            anytime soon. You are my favorite color, my favorite poem, my favorite muse.
+            They say distance makes the heart grow fonder, but oh god I do not think my heart 
+            can take any more fondness. I am simply enchanted by you. You are the shine in my teeth 
+            when I smile, you are the beating in my heart between my ribcage, I am equipped to be yours. 
+        </p>
+
+        <!-- Secret Letter -->
+
+        <button class="secret-btn" onclick="toggleLetter()">
+            Open Secret Letter 💌
+        </button>
+
+        <div id="secretLetter" class="secret-letter">
+            <h3>To You ❤️</h3>
+
+            <p>
+                I remember the night you asked me to be your girlfriend. 
+                The night of wedding party, how ironic.
+                I remember rushing to Trader Joe's to get flowers,
+                working hard to make sure it was perfect, full of all the pretty flowers.
+                You take my heart and you take me and you make my loving worth it. 
+                You truly do love me for me and thank GOD i am not chopped. 
+                You made these last four* months so special.
+                Every day with you gives me something new to smile about.
+            </p>
+
+            <p>
+                Ariel, my lovely pretty girl, to many many more memories, walks, adventures and getting lost, 
+                shows on the couch toegther, laughs, and months together. 
+            </p>
+        </div>
+
+        <!-- 10 Things -->
+
+        <section class="love-list">
+            <h2>10 Things I Love About You ❤️</h2>
+
+            <ol>
+                <li>YOUR FRECKLES. I would count every single one if you would let me.</li>
+                <li>The way you show up for everyone who matters to you.</li>
+                <li>The way you get toothpaste on every shirt I give you.</li>
+                <li>The way I fit so perfectly in your arms.</li>
+                <li>When you bring me a flower to tell me you love me.</li>
+                <li>The way you make an effort to make me feel loved.</li>
+                <li>How comfortable I feel around you.</li>
+                <li>Every single one of our adventures together. From our walks to dinners in the village.</li>
+                <li>How you make me feel better about everything I am worried about with a simple hug.</li>
+                <li>How special you make me feel.</li>
+            </ol>
+        </section>
+
+        <!-- Gallery -->
+
+        <section class="gallery">
+            <h2>Our Favorite Memories 📸</h2>
+
+            <div class="gallery-grid">
+                <img src="ad3mo2.jpg" alt="Memory 1">
+                <img src="ad3mo3.jpg" alt="Memory 2">
+                <img src="ad3mo4.jpg" alt="Memory 3">
+                <img src="ad3mo5.jpg" alt="Memory 4">
+                <img src="ad3mo6.jpg" alt="Memory 4">
+                <img src="ad3mo7.jpg" alt="Memory 4">
+            </div>
+        </section>
+
+        <div class="signature">
+            Love Always ❤️
+        </div>
+
+        <div class="date">
+            Happy 3 Month Anniversary ✨
+        </div>
+
+    </div>
+
+    <script>
+
+        /* CHANGE THIS DATE */
+        const startDate = new Date("2026-03-08");
+
+        function updateTimer() {
+
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+            document.getElementById("relationshipTimer").textContent =
+                `${days} Days, ${hours} Hours, ${minutes} Minutes ❤️`;
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 60000);
+
+        function toggleLetter() {
+
+            const letter = document.getElementById("secretLetter");
+
+            if(letter.style.display === "block"){
+                letter.style.display = "none";
+            } else {
+                letter.style.display = "block";
+            }
+        }
+
+        function playSong() {
+
+            const song = document.getElementById("ourSong");
+
+            if(song.paused){
+                song.play();
+            } else {
+                song.pause();
+            }
+        }
+
+    </script>
+
+</body>
+</html>
