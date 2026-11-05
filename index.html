@@ -198,6 +198,59 @@ footer {
     font-size: 0.85rem;
     opacity: 0.8;
 }
+
+    
+/* CATCH MY LOVE GAME */
+
+.game-area {
+    background: #fff5fa;
+    border: 2px solid #ffd1e3;
+    border-radius: 22px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+#loveGame {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin: auto;
+    border-radius: 18px;
+    background: linear-gradient(#ffe4f0, #fff1f6);
+    border: 2px solid white;
+    touch-action: none;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 12px;
+}
+
+.game-controls button {
+    font-size: 22px;
+    min-width: 75px;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-around;
+    font-weight: 700;
+    margin: 12px 0;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#gameResult {
+    font-weight: 700;
+    margin: 15px 0;
+    line-height: 1.7;
+}
+
+
+    
 </style>
 </head>
 
@@ -378,6 +431,37 @@ footer {
         Forever and always ♡
     </footer>
 
+
+
+    
+<section class="card">
+    <h2>Catch My Love 💗</h2>
+
+    <p>Catch as many hearts as you can, beautiful!</p>
+
+    <div class="game-area">
+
+        <div class="game-stats">
+            <span>💗 Score: <span id="gameScore">0</span></span>
+            <span>⏰ Time: <span id="gameTime">30</span>s</span>
+        </div>
+
+        <canvas id="loveGame" width="500" height="350"></canvas>
+
+        <button id="startGame" onclick="startLoveGame()">
+            Start Playing 💕
+        </button>
+
+        <div class="game-controls">
+            <button id="leftBtn" aria-label="Move left">⬅️</button>
+            <button id="rightBtn" aria-label="Move right">➡️</button>
+        </div>
+
+        <p id="gameResult">Ready to catch some love? ♡</p>
+
+    </div>
+</section>
+
 </main>
 
 <script>
@@ -467,6 +551,228 @@ function resetGame() {
 }
 
 createGame();
+
+
+
+    
+// CATCH MY LOVE GAME 💗
+
+const canvas = document.getElementById("loveGame");
+const ctx = canvas.getContext("2d");
+
+let basket = { x: 225, y: 300, width: 65, speed: 7 };
+let fallingItems = [];
+let gamePoints = 0;
+let gameRunning = false;
+let gameStartTime = 0;
+let animationFrame;
+let lastSpawn = 0;
+let keys = { left: false, right: false };
+
+const gameDuration = 30000;
+
+function startLoveGame() {
+    cancelAnimationFrame(animationFrame);
+
+    gamePoints = 0;
+    fallingItems = [];
+    basket.x = 225;
+    keys.left = false;
+    keys.right = false;
+
+    gameRunning = true;
+    gameStartTime = performance.now();
+    lastSpawn = 0;
+
+    document.getElementById("gameScore").textContent = "0";
+    document.getElementById("gameTime").textContent = "30";
+    document.getElementById("gameResult").textContent =
+        "Catch those hearts, my love! 💗";
+
+    document.getElementById("startGame").textContent = "Playing! 💕";
+
+    animationFrame = requestAnimationFrame(gameLoop);
+}
+
+function spawnItem() {
+    const random = Math.random();
+
+    let emoji = "💗";
+    let points = 1;
+
+    if (random < 0.15) {
+        emoji = "💔";
+        points = -2;
+    } else if (random > 0.85) {
+        emoji = "🌟";
+        points = 5;
+    }
+
+    fallingItems.push({
+        x: 20 + Math.random() * 460,
+        y: -30,
+        speed: 2.5 + Math.random() * 2.5,
+        emoji: emoji,
+        points: points
+    });
+}
+
+function gameLoop(timestamp) {
+    if (!gameRunning) return;
+
+    const elapsed = timestamp - gameStartTime;
+    const remaining = Math.max(
+        0,
+        Math.ceil((gameDuration - elapsed) / 1000)
+    );
+
+    document.getElementById("gameTime").textContent = remaining;
+
+    if (elapsed >= gameDuration) {
+        endLoveGame();
+        return;
+    }
+
+    // Move basket
+
+    if (keys.left) basket.x -= basket.speed;
+    if (keys.right) basket.x += basket.speed;
+
+    basket.x = Math.max(
+        0,
+        Math.min(500 - basket.width, basket.x)
+    );
+
+    // Spawn falling hearts
+
+    if (timestamp - lastSpawn > 650) {
+        spawnItem();
+        lastSpawn = timestamp;
+    }
+
+    // Draw background
+
+    ctx.clearRect(0, 0, 500, 350);
+
+    // Draw decorative stars
+
+    ctx.font = "18px Arial";
+    ctx.fillText("✨", 30, 40);
+    ctx.fillText("♡", 440, 70);
+    ctx.fillText("✨", 390, 200);
+
+    // Draw basket
+
+    ctx.font = "52px Arial";
+    ctx.fillText("🧺", basket.x, basket.y + 35);
+
+    // Move and draw falling objects
+
+    for (let i = fallingItems.length - 1; i >= 0; i--) {
+        let item = fallingItems[i];
+
+        item.y += item.speed;
+
+        ctx.font = "29px Arial";
+        ctx.fillText(item.emoji, item.x, item.y);
+
+        // Check if basket catches item
+
+        if (
+            item.y > basket.y - 5 &&
+            item.y < basket.y + 35 &&
+            item.x > basket.x - 10 &&
+            item.x < basket.x + basket.width + 10
+        ) {
+            gamePoints = Math.max(0, gamePoints + item.points);
+
+            document.getElementById("gameScore").textContent =
+                gamePoints;
+
+            fallingItems.splice(i, 1);
+            continue;
+        }
+
+        // Remove items that fall off screen
+
+        if (item.y > 370) {
+            fallingItems.splice(i, 1);
+        }
+    }
+
+    animationFrame = requestAnimationFrame(gameLoop);
+}
+
+function endLoveGame() {
+    gameRunning = false;
+    cancelAnimationFrame(animationFrame);
+
+    document.getElementById("gameTime").textContent = "0";
+    document.getElementById("startGame").textContent = "Play Again 💗";
+
+    let message = "";
+
+    if (gamePoints >= 40) {
+        message = "OMG!! You're a heart-catching champion! 🏆💗";
+    } else if (gamePoints >= 20) {
+        message = "Awww!! You caught so much love! 💕";
+    } else {
+        message = "Every heart you caught represents one more reason I love you! ♡";
+    }
+
+    document.getElementById("gameResult").innerHTML =
+        message + "<br><br>Final score: " + gamePoints +
+        "<br>But you already have all my love. 💌";
+
+    ctx.font = "55px Arial";
+    ctx.fillText("💗", 220, 170);
+    ctx.font = "25px Arial";
+    ctx.fillText("YOU ARE LOVED!", 155, 215);
+}
+
+// Keyboard controls
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
+        keys.left = true;
+        event.preventDefault();
+    }
+
+    if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
+        keys.right = true;
+        event.preventDefault();
+    }
+});
+
+document.addEventListener("keyup", function(event) {
+    if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
+        keys.left = false;
+    }
+
+    if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
+        keys.right = false;
+    }
+});
+
+// Mobile and mouse controls
+
+function holdButton(id, direction) {
+    const button = document.getElementById(id);
+
+    button.addEventListener("pointerdown", function(event) {
+        event.preventDefault();
+        keys[direction] = true;
+    });
+
+    ["pointerup", "pointerleave", "pointercancel"].forEach(type => {
+        button.addEventListener(type, function() {
+            keys[direction] = false;
+        });
+    });
+}
+
+holdButton("leftBtn", "left");
+holdButton("rightBtn", "right");
 
 </script>
 
