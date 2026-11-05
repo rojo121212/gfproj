@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little World of Love 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #ffd6e7, #fff0e6, #f9d8f5);
+    color: #a34c72;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -50px;
+    animation: floatUp linear infinite;
+    opacity: 0.65;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% { opacity: 0.7; }
+    100% {
+        transform: translateY(-115vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 750px;
+    margin: auto;
+    padding: 55px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 9vw, 5rem);
+    color: #d65c91;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: rgba(255,255,255,0.82);
+    border: 2px solid white;
+    border-radius: 28px;
+    padding: 30px 22px;
+    margin: 25px 0;
+    box-shadow: 0 10px 35px rgba(194, 105, 145, 0.12);
+}
+
+h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.4rem;
+    color: #d65c91;
+    margin-bottom: 15px;
+}
+
+button {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    border: none;
+    background: #f49abb;
+    color: white;
+    padding: 13px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 0.95rem;
+    transition: 0.25s;
+    box-shadow: 0 4px 12px rgba(214, 92, 145, 0.15);
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.04);
+    background: #df76a2;
+}
+
+.envelope {
+    font-size: 85px;
+    cursor: pointer;
+    display: inline-block;
+    transition: 0.3s;
+    margin: 15px;
+}
+
+.envelope:hover {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.letter {
+    display: none;
+    background: #fff8fb;
+    border: 2px dashed #f2a4c2;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 20px;
+    line-height: 1.9;
+    text-align: left;
+    white-space: pre-line;
+    animation: appear 0.7s ease;
+}
+
+.letter.show {
+    display: block;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.game-hearts {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 370px;
+    margin: 25px auto;
+}
+
+.heart {
+    background: #fff0f5;
+    border: 2px solid #ffd1e2;
+    border-radius: 15px;
+    padding: 12px 3px;
+    font-size: 27px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: none;
+    margin: 0;
+}
+
+.heart:hover {
+    background: #ffe0ec;
+    transform: scale(1.12);
+}
+
+.heart.found {
+    background: #fce2ed;
+    opacity: 0.55;
+    transform: scale(0.9);
+    cursor: default;
+}
+
+#gameMessage {
+    min-height: 30px;
+    margin: 15px 0;
+    font-weight: 700;
+}
+
+.secret {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff0f6;
+    border-radius: 20px;
+    animation: appear 0.7s ease;
+    line-height: 1.8;
+}
+
+.secret.show {
+    display: block;
+}
+
+footer {
+    padding: 25px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<main>
+
+    <h1>For My Favorite Girl 💗</h1>
+
+    <p class="subtitle">
+        I made you a little corner of the internet...
+        just for you. ♡
+    </p>
+
+    <!-- LOVE LETTER -->
+
+    <section class="card">
+        <h2>A Little Letter For You</h2>
+
+        <p>Someone has a little something to tell you...</p>
+
+        <div class="envelope" onclick="openLetter()">
+            💌
+        </div>
+
+        <p>Tap the envelope to open your letter!</p>
+
+        <div class="letter" id="letter">
+            <h2 style="text-align:center;">My Sweet Girl ♡</h2>
+
+            Hey beautiful,
+
+            I wanted to make something special for you,
+            something that you could come back to whenever
+            you need a reminder of how loved you are.
+
+            You make my world a little brighter, my days
+            a little sweeter, and my heart a whole lot happier.
+
+            I hope you know how special you are to me.
+            Thank you for being you, for making me smile,
+            and for being someone I feel so lucky to have.
+
+            If I could give you one thing, it would be
+            the ability to see yourself through my eyes.
+            Then you would understand just how amazing you are.
+
+            I love you so much.
+
+            Always yours,
+            Your favorite person ♡
+        </div>
+    </section>
+
+
+    <!-- HEART GAME -->
+
+    <section class="card">
+        <h2>A Little Game For You ♡</h2>
+
+        <p>
+            I hid 10 little hearts for you!
+            Find them all to unlock a secret surprise.
+        </p>
+
+        <h3 style="margin-top:18px;">
+            Hearts found: <span id="score">0</span>/10
+        </h3>
+
+        <div class="game-hearts" id="game"></div>
+
+        <p id="gameMessage">Go find your hearts, pretty girl! 💕</p>
+
+        <div class="secret" id="secret">
+            <h2>You Found Them All!! 🎉</h2>
+
+            <p>
+                Surprise!! You found all 10 hearts,
+                but there's one thing you should know...
+            </p>
+
+            <h2 style="margin:15px 0;">You have ALL of mine. ❤️</h2>
+
+            <p>
+                No game could ever measure how much
+                I love you. You're my favorite person.
+            </p>
+
+            <p style="font-size:30px;margin-top:12px;">
+                💗💗💗💗💗
+            </p>
+        </div>
+
+        <button onclick="resetGame()">Play Again ↻</button>
+    </section>
+
+
+    <section class="card">
+        <h2>One Last Thing...</h2>
+
+        <p>
+            If you ever forget how much I love you,
+            come back to this little website.
+        </p>
+
+        <h1 style="font-size:3rem;margin-top:15px;">
+            I LOVE YOU ♡
+        </h1>
+
+        <p>Made with love, just for you. 💗</p>
+    </section>
+
+    <footer>
+        Forever and always ♡
+    </footer>
+
+</main>
+
+<script>
+
+// FLOATING HEARTS
+
+const heartContainer = document.getElementById("hearts");
+
+const heartSymbols = ["💗", "💕", "💖", "♡", "💘", "💞", "❤️"];
+
+function createHeart() {
+    const heart = document.createElement("span");
+
+    heart.className = "floating-heart";
+    heart.innerHTML = heartSymbols[
+        Math.floor(Math.random() * heartSymbols.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 8) + "s";
+
+    heartContainer.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 14000);
+}
+
+setInterval(createHeart, 300);
+
+
+// OPEN LOVE LETTER
+
+function openLetter() {
+    document.getElementById("letter").classList.toggle("show");
+}
+
+
+// HEART COLLECTING GAME
+
+const game = document.getElementById("game");
+
+let score = 0;
+
+function createGame() {
+    game.innerHTML = "";
+
+    score = 0;
+    document.getElementById("score").textContent = score;
+    document.getElementById("secret").classList.remove("show");
+    document.getElementById("gameMessage").textContent =
+        "Go find your hearts, pretty girl! 💕";
+
+    for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("button");
+
+        heart.className = "heart";
+        heart.textContent = "❔";
+        heart.setAttribute("aria-label", "Find a hidden heart");
+
+        heart.onclick = function() {
+            if (heart.classList.contains("found")) return;
+
+            heart.textContent = "💗";
+            heart.classList.add("found");
+
+            score++;
+
+            document.getElementById("score").textContent = score;
+
+            if (score === 10) {
+                document.getElementById("gameMessage").textContent =
+                    "YOU DID IT!! I have a surprise for you! 🎀";
+
+                document.getElementById("secret").classList.add("show");
+            } else {
+                document.getElementById("gameMessage").textContent =
+                    "Yay!! You found a heart! 💕";
+            }
+        };
+
+        game.appendChild(heart);
+    }
+}
+
+function resetGame() {
+    createGame();
+}
+
+createGame();
+
+</script>
+
+</body>
+</html>
