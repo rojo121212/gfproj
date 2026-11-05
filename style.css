@@ -43,21 +43,36 @@ header {
     letter-spacing: 2px;
 }
 
+nav {
+    display: block;
+    width: auto;
+}
+
 nav ul {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     list-style: none;
-    gap: 38px;
+    gap: 25px;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: block;
+    flex-shrink: 0;
 }
 
 nav a {
+    display: inline-block;
     text-decoration: none;
     color: #80656b;
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: 0.3s ease;
-    padding-bottom: 7px;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 nav a:hover,
@@ -219,10 +234,23 @@ footer {
 @media (max-width: 600px) {
 
     header {
-        padding: 22px 6%;
-        flex-direction: column;
-        gap: 20px;
-    }
+    width: 100%;
+    padding: 25px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid rgba(145, 105, 115, 0.15);
+}
+
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    color: #8f5968;
+    text-decoration: none;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
 
     nav ul {
         gap: 25px;
