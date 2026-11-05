@@ -490,14 +490,14 @@ function createGame() {
     document.getElementById("score").textContent = score;
     document.getElementById("secret").classList.remove("show");
     document.getElementById("gameMessage").textContent =
-        "Go find your hearts, pretty girl! 💕";
+        "go get those hearts girllll";
 
     for (let i = 0; i < 10; i++) {
         const heart = document.createElement("button");
 
         heart.className = "heart";
         heart.textContent = "❔";
-        heart.setAttribute("aria-label", "Find a hidden heart");
+        heart.setAttribute("aria-label", "find a hidden heart");
 
         heart.onclick = function() {
             if (heart.classList.contains("found")) return;
@@ -511,12 +511,12 @@ function createGame() {
 
             if (score === 10) {
                 document.getElementById("gameMessage").textContent =
-                    "YOU DID IT!! I have a surprise for you! 🎀";
+                    "YOU DID IT! follow for a surprise.... 🎀";
 
                 document.getElementById("secret").classList.add("show");
             } else {
                 document.getElementById("gameMessage").textContent =
-                    "Yay!! You found a heart! 💕";
+                    "aww you found a heart! 💕";
             }
         };
 
@@ -565,9 +565,9 @@ function startLoveGame() {
     document.getElementById("gameScore").textContent = "0";
     document.getElementById("gameTime").textContent = "30";
     document.getElementById("gameResult").textContent =
-        "Catch those hearts, my love! 💗";
+        "bow bow bow get those hearts 💗";
 
-    document.getElementById("startGame").textContent = "Playing! 💕";
+    document.getElementById("startGame").textContent = "playyyy 💕";
 
     animationFrame = requestAnimationFrame(gameLoop);
 }
@@ -686,16 +686,16 @@ function endLoveGame() {
     cancelAnimationFrame(animationFrame);
 
     document.getElementById("gameTime").textContent = "0";
-    document.getElementById("startGame").textContent = "Play Again 💗";
+    document.getElementById("startGame").textContent = "Play Again";
 
     let message = "";
 
     if (gamePoints >= 40) {
-        message = "OMG!! You're a heart-catching champion! 🏆💗";
+        message = "damnnn ok champ 🏆💗";
     } else if (gamePoints >= 20) {
-        message = "Awww!! You caught so much love! 💕";
+        message = "ayeee gamer girl 💕";
     } else {
-        message = "Every heart you caught represents one more reason I love you! ♡";
+        message = "bow bow bow♡";
     }
 
     document.getElementById("gameResult").innerHTML =
